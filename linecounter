@@ -18,7 +18,6 @@ for file in $FILES ; do
     fi
     FILE_LINE_COUNT=$(echo $FILE_DETAILS | awk '{ print $1 }')
     SUM=$(($SUM+$FILE_LINE_COUNT))
-    echo $SUM
 done
 
 echo "$1 has $SUM lines in total"
