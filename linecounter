@@ -7,7 +7,7 @@ if [ ${#FILE_EXTENSION[@]} -eq 0 ] ; then
     exit
 fi
 
-FILES=$(find . -name "$1")
+FILES=$(find $PWD -name "$1")
 
 SUM=0
 for file in $FILES ; do
@@ -16,7 +16,9 @@ for file in $FILES ; do
         echo "Files are ambiguous"
         exit
     fi
-    ((SUM+=$(echo $FILE_DETAILS | awk '{ print $1 }')))
+    FILE_LINE_COUNT=$(echo $FILE_DETAILS | awk '{ print $1 }')
+    SUM=$(($SUM+$FILE_LINE_COUNT))
+    echo $SUM
 done
 
 echo "$1 has $SUM lines in total"
