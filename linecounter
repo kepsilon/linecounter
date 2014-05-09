@@ -1,0 +1,22 @@
+#!/bin/sh
+
+FILE_EXTENSION=$1
+
+if [ ${#FILE_EXTENSION[@]} -eq 0 ] ; then
+    echo "You need to supply a file extension"
+    exit
+fi
+
+FILES=$(find . -name "$1")
+
+SUM=0
+for file in $FILES ; do
+    FILE_DETAILS=$(wc -l $file 2> /dev/null)
+    if [ $? -ne 0 ] ; then
+        echo "Files are ambiguous"
+        exit
+    fi
+    ((SUM+=$(echo $FILE_DETAILS | awk '{ print $1 }')))
+done
+
+echo "$1 has $SUM lines in total"
